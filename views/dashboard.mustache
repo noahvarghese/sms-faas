@@ -31,6 +31,7 @@
     }
   </style>
   <link rel="stylesheet" href="./css/simple-grid.min.css" />
+  <link rel="icon" type="image/ico" href="./favicon.ico" />
 </head>
 <body>
     <div class="row">
@@ -54,6 +55,27 @@
         socket.on('new-message', function(message) {
             //  Here, you will need to add the new message to the above table
             console.log('New message!', 'Find me in ./views/dashboard.mustache', message);
+
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            const status = document.createElement("div");
+            status.classList.add("col-4", "status");
+            status.value = message.status;
+
+            const messageText = document.createElement("div");
+            messageText.classList.add("col-4", "message");
+            messageText.value = message.message;
+
+            const timestamp = document.createElement("div");
+            timestamp.classList.add("col-4", "timestamp");
+            timestamp.value = message.timestamp;
+
+            row.appendChild(status);
+            row.appendChild(messageText);
+            row.appendChild(timestamp);
+
+            document.getElementsByClassName("items-table")[0].children.splice(0, 0, row);
         });
     </script>
 </body>
