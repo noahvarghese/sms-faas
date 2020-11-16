@@ -29,6 +29,10 @@
     .items-table .row .timestamp {
         text-align: right;
     }
+
+    .new-item {
+        background-color: rgba(0,0,255,0.2)
+    }
   </style>
   <link rel="stylesheet" href="./css/simple-grid.min.css" />
   <link rel="icon" type="image/ico" href="./favicon.ico" />
@@ -57,25 +61,29 @@
             console.log('New message!', 'Find me in ./views/dashboard.mustache', message);
 
             const row = document.createElement("div");
-            row.classList.add("row");
+            row.classList.add("row", "new-item");
 
             const status = document.createElement("div");
             status.classList.add("col-4", "status");
-            status.value = message.status;
+            status.innerHTML = message.status;
 
             const messageText = document.createElement("div");
             messageText.classList.add("col-4", "message");
-            messageText.value = message.message;
+            messageText.innerHTML = message.message;
 
             const timestamp = document.createElement("div");
             timestamp.classList.add("col-4", "timestamp");
-            timestamp.value = message.timestamp;
+            timestamp.innerHTML = new Date(message.timestamp).toString();
 
             row.appendChild(status);
             row.appendChild(messageText);
             row.appendChild(timestamp);
 
-            document.getElementsByClassName("items-table")[0].children.splice(0, 0, row);
+            setTimeout(() => {
+                row.classList.remove("new-item");
+            }, 3000)
+
+            document.getElementsByClassName("items-table")[0].appendChild(row);
         });
     </script>
 </body>

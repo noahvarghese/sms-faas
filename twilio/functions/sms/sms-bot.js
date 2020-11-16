@@ -1,5 +1,6 @@
 exports.handler = async function (context, event, callback) {
   var redis = require('redis');
+  var axios = require('axios');
   var uniqid = require('uniqid');
   var twiml = new Twilio.twiml.MessagingResponse();
   require("dotenv").config();
@@ -45,13 +46,26 @@ exports.handler = async function (context, event, callback) {
 
       break;
 
-    case "who":
+    case "hogwarts":
+      axios.get("https://www.potterapi.com/v1/sortingHat")
+        .then(res => {
+          if (res.data) {
+            twiml.message(`Your Hogwarts house is ${res.data}`);
+          } else {
+            twiml.message(`There was an error picking your house`);
+          }
+          return callback(null, twiml);
+        })
+        .catch(err => {
+          twiml.message(`There was an error picking your house... ${err}`);
+          return callback(null, twiml);
+        });
       //  Where you would implement your API response for texted requests
       //  https://www.twilio.com/docs/runtime/quickstart/serverless-functions-make-a-read-request-to-an-external-api
       break;
 
     case "helpme":
-      twiml.message('...your help stuff...');
+      twiml.message('List of commands:\nhogwarts -> returns your hogwarts house\nupdate [status] [message] -> status must be one word, message can be multiple words');
 
       callback(null, twiml);
       break;
