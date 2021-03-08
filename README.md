@@ -1,7 +1,6 @@
-# Lab 4
-### Structure/Guide
+# sms-faas
 
-For more information, read the Overview for Week 7, 8 and 9 in Canvas.
+The purpose of this lab was to utilize a FaaS and learn about NoSQL databases (in this case Redis).
 
 ### Development
 
@@ -18,10 +17,6 @@ To run:
 
 To deploy:
 * `npm run deploy`
-
-### Notes
-
-* In package.json you'll notice that nodemon is running with the exec (-e) option. This is to include .mustache templates when monitoring for changes.
 
 ### Help
 
